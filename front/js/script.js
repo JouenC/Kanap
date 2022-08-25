@@ -36,7 +36,7 @@ function fillPage(products) {
         let productTitle = createElement('h3')
         let productDescription = createElement('p')
         productLink.href = './product.html?id=' + product._id
-        productImg.src = product.imageURL
+        productImg.src = product.imageUrl
         productImg.alt = product.altTxt
         productTitle.innerText = product.name
         productDescription.innerText = product.description
@@ -69,8 +69,8 @@ fetch("http://localhost:3000/api/products")
             let product = new Product(jsonProduct);
             document.getElementById("items").innerHTML +=  `<a href="./product.html?id=${product._id}">
                                                                 <article>
-                                                                    <img src="${product.imageURL}" alt="${product.altTxt}">
-                                                                    <h3 class="productName">${product.title}</h3>
+                                                                    <img src="${product.imageUrl}" alt="${product.altTxt}">
+                                                                    <h3 class="productName">${product.name}</h3>
                                                                     <p class="productDescription">${product.description}</p>
                                                                 </article>
                                                             </a>`
