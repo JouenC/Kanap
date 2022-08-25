@@ -20,11 +20,11 @@ async function getProducts() {
 }*/
 
 /*async function getProducts() {
-    const res = await fetch("http://localhost:3000/api/products")
-    console.log(res)
-    const resJson = res.json
-    console.log(resJson)
-    fillPage(resJson)
+    const products = await fetch("http://localhost:3000/api/products")
+    console.log(products)
+    const productsJson = products.json()
+    console.log(products)
+    fillPage(products)
 }
 
 function fillPage(products) {
