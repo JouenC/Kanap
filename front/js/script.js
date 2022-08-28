@@ -19,22 +19,22 @@ async function getProducts() {
         })
 }*/
 
-/*async function getProducts() {
+async function getProducts() {
     const products = await fetch("http://localhost:3000/api/products")
-    console.log(products)
-    const productsJson = products.json()
-    console.log(products)
-    fillPage(products)
+    console.log(products.data)
+    const productsJson = await products.json()
+    console.log(productsJson)
+    fillPage(productsJson)
 }
 
 function fillPage(products) {
     console.log(products)
     products.forEach(product => {
-        let productLink = createElement('a')
-        let productArticle = createElement('article')
-        let productImg = createElement('img')
-        let productTitle = createElement('h3')
-        let productDescription = createElement('p')
+        let productLink = document.createElement('a')
+        let productArticle = document.createElement('article')
+        let productImg = document.createElement('img')
+        let productTitle = document.createElement('h3')
+        let productDescription = document.createElement('p')
         productLink.href = './product.html?id=' + product._id
         productImg.src = product.imageUrl
         productImg.alt = product.altTxt
@@ -48,9 +48,9 @@ function fillPage(products) {
     });  
 }
 
-getProducts()*/
+getProducts()
 
-class Product {
+/*class Product {
     constructor(jsonProduct) {
         jsonProduct && Object.assign(this, jsonProduct);
     }
@@ -75,4 +75,4 @@ fetch("http://localhost:3000/api/products")
                                                                 </article>
                                                             </a>`
         }
-    })
+    })*/
