@@ -1,6 +1,5 @@
 getProductId()
 displayProduct()
-/*getProduct()*/
 
 function getProductId() {
     return new URL(location.href).searchParams.get("id")
@@ -14,7 +13,7 @@ async function displayProduct() {
     const productJson = await getProduct.json()
     console.log(productJson)
     fillPageProduct(productJson)
-    colorChoise(productJson)
+    colorChoice(productJson)
 }
 
 function fillPageProduct(product) {
@@ -29,35 +28,27 @@ function fillPageProduct(product) {
     
 }
 
-function colorChoise(product) {
-    /*for (let color of product.colors) {
-        console.log(color)
-        let option = document.querySelector("option")
-        option.value = color.charAt(0).toUpperCase() + color.slice(1)
-        option.innerText = color.charAt(0).toUpperCase() + color.slice(1)*/
-
-        /*document.querySelector("option").value = product.colors[color]
-        console.log(document.querySelector("option").value)
-        document.querySelector("option").innerText = product.colors*/
-
-    /*var option = null;*/
-    /*var selection = document.appendChild("option") */
-    var option = null
-
+function colorChoice(product) {
     for(i = 0; i<product.colors.length; i++) { 
-        
-        /*option = document.querySelector("option")
-        option.value = product.colors[i]
-        option.innerHTML = product.colors[i]*/
-        document.createElement("option").document.appendChild("option")
-        option = document.querySelector("option:nth-child(i)")
+        let option = document.createElement("option")
         option.value = product.colors[i]
         console.log(option.value)
         option.innerHTML = product.colors[i]
         console.log(option.innerText)
-        
-        /*selection.appendChild("option:nth-child(i)")*/
+        document.querySelector("select").appendChild(option)
     }
+}
+
+function saveBasket(basket) {
+    localStorage.setItem("basket", basket)
+}
+
+function getBasket() {
+    return localStorage.getItem("basket")
+}
+function addBasket(product) {
+    let basket = getBasket()
+    basket.push(product)
 }
 
     
