@@ -40,15 +40,35 @@ function colorChoice(product) {
 }
 
 function saveBasket(basket) {
-    localStorage.setItem("basket", basket)
+    localStorage.setItem("basket", JSON.parse(basket))
 }
 
 function getBasket() {
-    return localStorage.getItem("basket")
+    let basket = localStorage.getItem("basket")
+    if (basket == null) {
+        return []
+    } else {
+        return JSON.parse(basket)
+    }
 }
+
 function addBasket(product) {
     let basket = getBasket()
-    basket.push(product)
+    let foundProduct = basket.find(p => p.id == product.id)
+    if (foundProduct != undefined) {
+        foundProduct.quantity + document.getElementsByClassName("item__content__settings__quantity")
+    }
+    else {
+        product.quantity == document.getElementsByClassName("item__content__settings__quantity")
+        basket.push(product)
+    }
+    saveBasket(product)
 }
+
+/*document.getElementById('addToCart').addEventListener('click', function() {
+    addBasket(product)
+
+    
+})*/
 
     
