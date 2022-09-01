@@ -1,10 +1,12 @@
 getProductId()
 displayProduct()
 
+/* Récupèration de l'ID du produit affiché sur la page */
 function getProductId() {
     return new URL(location.href).searchParams.get("id")
 }
 
+/* Appel le produit correspondant à la page à l'aide de son id puis appel les fonctions permettant son affichage sur la page*/
 async function displayProduct() {
     const productId = getProductId()
     console.log(productId)
@@ -45,6 +47,7 @@ function saveBasket(basket) {
 
 function getBasket() {
     let basket = localStorage.getItem("basket")
+    console.log(basket)
     if (basket == null) {
         return []
     } else {
@@ -52,23 +55,49 @@ function getBasket() {
     }
 }
 
-function addBasket(product) {
+function addBasket(product, quantity) {
     let basket = getBasket()
     let foundProduct = basket.find(p => p.id == product.id)
     if (foundProduct != undefined) {
-        foundProduct.quantity + document.getElementsByClassName("item__content__settings__quantity")
+        foundProduct.quantity += document.getElementsByClassName("item__content__settings__quantity").quantity
+        if (foundProduct.quantity <= 0) {
+            removeFromBasket(foundProduct)
+        } else {
+        product.quantity == document.getElementsByClassName("item__content__settings__quantity").quantity
+        /*basket.push(product)*/
+        }
     }
-    else {
-        product.quantity == document.getElementsByClassName("item__content__settings__quantity")
-        basket.push(product)
-    }
-    saveBasket(product)
+    saveBasket(basket)
 }
 
-/*document.getElementById('addToCart').addEventListener('click', function() {
-    addBasket(product)
+function removeFromBasket(product) {
+    let basket = getBasket()
+    let foundProduct = basket.filter(p => p.id == product.id)
+    saveBasket(basket)
+}
 
-    
-})*/
+/* A mettre sur la page panier */
+function getNumberProduct() {
+    let basket = getBasket
+    let number = 0
+    for (let product of basket) {
+        number = product.quantity
+    }
+    return number
+}
+
+/* A mettre sur la page panier */
+function getTotalPrice() {
+    let basket = getBasket
+    let number = 0
+    for (let product of basket) {
+        number = product.quantity * product.price
+    }
+    return number
+}
+
+document.getElementById('addToCart').addEventListener('click', function() {
+    addBasket(product)  
+})
 
     
