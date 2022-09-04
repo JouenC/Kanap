@@ -73,6 +73,9 @@ function getTotalPrice() {
 document.getElementById('addToCart').addEventListener('click', function() {
     currentProduct.selectQuantity = parseInt(document.getElementById("quantity").value)
     currentProduct.selectColor = document.getElementById("colors").value
+    /* if (currentProduct.selectColor === "") {
+        alors renvoyer un texte demandant de choisir une couleur
+    } */
     currentProduct.selectPrice = parseInt(document.getElementById("price").innerHTML)
     console.log(currentProduct)
     addBasket(currentProduct)  
@@ -81,8 +84,11 @@ document.getElementById('addToCart').addEventListener('click', function() {
 function addBasket(product, quantity) {
     let basket = getBasket()
     let foundProduct = basket.find(p => p.id == product.id)
-    /*if find.product == {
-        */
+    /* if (foundProduct.selectColor != undefined) {
+        foundProduct.quantity += quantity
+        Si selectColors && _id existe déjà, alors select.quantity += quantity
+        Sinon select.quantity == quantity
+    }*/
     basket.push(product)
     console.log(basket)
     saveBasket(basket)
