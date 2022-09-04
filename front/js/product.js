@@ -1,12 +1,13 @@
 getProductId()
 displayProduct()
+let currentProduct
 
 /* Récupèration de l'ID du produit affiché sur la page */
 function getProductId() {
     return new URL(location.href).searchParams.get("id")
 }
 
-/* Appel le produit correspondant à la page à l'aide de son id puis appel les fonctions permettant son affichage sur la page*/
+/* Appel le produit correspondant à la page à l'aide de son id puis appel les fonctions permettant son affichage sur la page */
 async function displayProduct() {
     const productId = getProductId()
     console.log(productId)
@@ -16,8 +17,10 @@ async function displayProduct() {
     console.log(productJson)
     fillPageProduct(productJson)
     colorChoice(productJson)
+    currentProduct = productJson
 }
 
+/* Permet l'affichage des caractéristiques du produit correspondant à la page */
 function fillPageProduct(product) {
     console.log(product)
     let productImg = document.createElement('img')
@@ -36,38 +39,9 @@ function colorChoice(product) {
         option.value = product.colors[i]
         console.log(option.value)
         option.innerHTML = product.colors[i]
-        console.log(option.innerText)
+        console.log(option.innerHTML)
         document.querySelector("select").appendChild(option)
     }
-}
-
-function saveBasket(basket) {
-    localStorage.setItem("basket", JSON.parse(basket))
-}
-
-function getBasket() {
-    let basket = localStorage.getItem("basket")
-    console.log(basket)
-    if (basket == null) {
-        return []
-    } else {
-        return JSON.parse(basket)
-    }
-}
-
-function addBasket(product, quantity) {
-    let basket = getBasket()
-    let foundProduct = basket.find(p => p.id == product.id)
-    if (foundProduct != undefined) {
-        foundProduct.quantity += document.getElementsByClassName("item__content__settings__quantity").quantity
-        if (foundProduct.quantity <= 0) {
-            removeFromBasket(foundProduct)
-        } else {
-        product.quantity == document.getElementsByClassName("item__content__settings__quantity").quantity
-        /*basket.push(product)*/
-        }
-    }
-    saveBasket(basket)
 }
 
 function removeFromBasket(product) {
@@ -97,7 +71,32 @@ function getTotalPrice() {
 }
 
 document.getElementById('addToCart').addEventListener('click', function() {
-    addBasket(product)  
+    currentProduct.selectQuantity = parseInt(document.getElementById("quantity").value)
+    currentProduct.selectColor = document.getElementById("colors").value
+    currentProduct.selectPrice = parseInt(document.getElementById("price").innerHTML)
+    console.log(currentProduct)
+    addBasket(currentProduct)  
 })
 
-    
+function addBasket(product, quantity) {
+    let basket = getBasket()
+    let foundProduct = basket.find(p => p.id == product.id)
+    /*if find.product == {
+        */
+    basket.push(product)
+    console.log(basket)
+    saveBasket(basket)
+}
+
+function getBasket() {
+    let basket = localStorage.getItem("basket")
+    if (basket == null) {
+        return []
+    } else {
+        return JSON.parse(basket)
+    }
+}
+
+function saveBasket(basket) {
+    localStorage.setItem("basket", JSON.stringify(basket))
+}
