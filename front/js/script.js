@@ -50,6 +50,7 @@ function fillPage(products) {
     });  
 }
 
+/* Lance la fonction permettant l'affichage dynamique */
 getProducts()
 
 /*class Product {
