@@ -17,7 +17,7 @@ function getNumberProduct() {
     let basket = getBasket
     let number = 0
     for (let product of basket) {
-        number = product.quantity
+        number = product.selectQuantity
     }
     return number
 }
@@ -26,7 +26,7 @@ function getTotalPrice() {
     let basket = getBasket
     let number = 0
     for (let product of basket) {
-        number = product.quantity * product.price
+        number = product.selectQuantity * product.selectPrice
     }
     return number
 }
