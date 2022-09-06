@@ -64,11 +64,13 @@ document.getElementById('addToCart').addEventListener('click', function() {
 function addBasket(product, quantity) {
     let basket = getBasket()
     let foundProduct = basket.find(p => p.id == product.id)
-    console.log(foundProduct.selectColor)
+    /*console.log(foundProduct.selectColor)
     console.log(foundProduct.selectQuantity)
     if (foundProduct.selectColor != undefined) {
-        foundProduct.selectQuantity += quantity /*Ne fonctionne pas...*/
-    }
+        foundProduct.selectQuantity += quantity Ne fonctionne pas...
+    } else {
+        foundProduct.selectQuantity == quantity
+    }*/
     basket.push(product)
     console.log(basket)
     saveBasket(basket)
