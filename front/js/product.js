@@ -44,51 +44,31 @@ function colorChoice(product) {
     }
 }
 
-function removeFromBasket(product) {
-    let basket = getBasket()
-    let foundProduct = basket.filter(p => p.id == product.id)
-    saveBasket(basket)
-}
-
-/* A mettre sur la page panier */
-function getNumberProduct() {
-    let basket = getBasket
-    let number = 0
-    for (let product of basket) {
-        number = product.quantity
-    }
-    return number
-}
-
-/* A mettre sur la page panier */
-function getTotalPrice() {
-    let basket = getBasket
-    let number = 0
-    for (let product of basket) {
-        number = product.quantity * product.price
-    }
-    return number
-}
-
 document.getElementById('addToCart').addEventListener('click', function() {
     currentProduct.selectQuantity = parseInt(document.getElementById("quantity").value)
+    if (currentProduct.selectQuantity == 0) {
+        return false
+        /*alors renvoyer un texte demandant de choisir une quantité*/
+    }
     currentProduct.selectColor = document.getElementById("colors").value
-    /* if (currentProduct.selectColor === "") {
-        alors renvoyer un texte demandant de choisir une couleur
-    } */
+    if (currentProduct.selectColor === "") {
+        return false
+        /*alors renvoyer un texte demandant de choisir une couleur*/
+    }
     currentProduct.selectPrice = parseInt(document.getElementById("price").innerHTML)
+    currentProduct.selectId = getProductId()
     console.log(currentProduct)
-    addBasket(currentProduct)  
+    addBasket(currentProduct)
 })
 
 function addBasket(product, quantity) {
     let basket = getBasket()
     let foundProduct = basket.find(p => p.id == product.id)
-    /* if (foundProduct.selectColor != undefined) {
-        foundProduct.quantity += quantity
-        Si selectColors && _id existe déjà, alors select.quantity += quantity
-        Sinon select.quantity == quantity
-    }*/
+    console.log(foundProduct.selectColor)
+    console.log(foundProduct.selectQuantity)
+    if (foundProduct.selectColor != undefined) {
+        foundProduct.selectQuantity += quantity /*Ne fonctionne pas...*/
+    }
     basket.push(product)
     console.log(basket)
     saveBasket(basket)
