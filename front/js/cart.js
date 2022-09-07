@@ -39,6 +39,8 @@ fillPage()
 getNumberProduct()
 getTotalPrice()
 
+document.getElementsByClassName('deleteItem').addEventListener('click', removeFromBasket())
+
 function removeFromBasket(product) {
     let basket = getBasket()
     let foundProduct = basket.filter(p => p.id == product.id)
@@ -65,4 +67,8 @@ function getTotalPrice() {
         number = product.selectQuantity[i] * product.selectPrice[i] + product.selectQuantity[i++] * product.selectPrice[i++]
     }
     document.getElementById("totalPrice").innerHTML = `${number}`
+}
+
+function saveBasket(basket) {
+    localStorage.setItem("basket", JSON.stringify(basket))
 }
