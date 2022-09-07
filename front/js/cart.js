@@ -43,7 +43,7 @@ document.getElementsByClassName('deleteItem').addEventListener('click', removeFr
 
 function removeFromBasket(product) {
     let basket = getBasket()
-    let foundProduct = basket.filter(p => p.id == product.id)
+    basket = basket.filter(p => p.id != product.id)
     saveBasket(basket)
 }
 
@@ -71,4 +71,15 @@ function getTotalPrice() {
 
 function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
+}
+
+function changeQuantity(product, quantity) {
+    let basket = getBasket()
+    let foundProduct = basket.find(p => p.id == product.id)
+    if (foundProduct != undefined) {
+        foundProduct.quantity += quantity
+        if (foundProduct.quantity <= 0) {
+            removeFromBasket(product)
+        }
+    }
 }
