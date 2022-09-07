@@ -1,11 +1,9 @@
 function getBasket() {
     const basket = localStorage.getItem("basket")
-    console.log(basket)
     if (basket == undefined) {
         return false
     } else {
         return JSON.parse(basket)
-        console.log(basket)
     }
 }
 
@@ -38,6 +36,8 @@ async function fillPage() {
 }
 
 fillPage()
+getNumberProduct()
+getTotalPrice()
 
 function removeFromBasket(product) {
     let basket = getBasket()
@@ -47,18 +47,22 @@ function removeFromBasket(product) {
 
 function getNumberProduct() {
     let basket = getBasket
+    console.log(basket)
     let number = 0
-    for (let product of basket) {
-        number = product.selectQuantity
+    for (i=0; i<basket.length; i++) {
+    /*for (let product of basket) {
+        number = product.selectQuantity*/
+        number = product.selectQuantity[i] + product.selectQuantity[i++]
+        console.log(number)
     }
-    return number
+    document.getElementById("totalQuantity").innerHTML = `${number}`
 }
 
 function getTotalPrice() {
     let basket = getBasket
     let number = 0
-    for (let product of basket) {
-        number = product.selectQuantity * product.selectPrice
+    for (i=0; i<basket.length; i++) {
+        number = product.selectQuantity[i] * product.selectPrice[i] + product.selectQuantity[i++] * product.selectPrice[i++]
     }
-    return number
+    document.getElementById("totalPrice").innerHTML = `${number}`
 }
