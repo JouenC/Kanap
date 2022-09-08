@@ -43,28 +43,40 @@ document.getElementsByClassName('deleteItem').addEventListener('click', removeFr
 
 function removeFromBasket(product) {
     let basket = getBasket()
+    console.log(basket)
     basket = basket.filter(p => p.id != product.id)
     saveBasket(basket)
 }
 
 function getNumberProduct() {
-    let basket = getBasket
-    console.log(basket)
+    let basket = getBasket()
     let number = 0
-    for (i=0; i<basket.length; i++) {
-    /*for (let product of basket) {
-        number = product.selectQuantity*/
-        number = product.selectQuantity[i] + product.selectQuantity[i++]
-        console.log(number)
+    let i = 0
+    console.log(document.getElementsByClassName("itemQuantity").value)
+    while (i<basket.length) {
+        number + parseInt(document.getElementsByClassName("itemQuantity")[i].value)
+        i++
     }
     document.getElementById("totalQuantity").innerHTML = `${number}`
 }
 
-function getTotalPrice() {
-    let basket = getBasket
+/*function getNumberProduct() {
+    let basket = getBasket()
+    console.log(basket)
     let number = 0
     for (i=0; i<basket.length; i++) {
-        number = product.selectQuantity[i] * product.selectPrice[i] + product.selectQuantity[i++] * product.selectPrice[i++]
+        number = number + basket.selectQuantity[i]
+        console.log(number)
+    }
+    document.getElementById("totalQuantity").innerHTML = `${number}`
+}*/
+
+function getTotalPrice() {
+    let basket = getBasket()
+    console.log(basket)
+    let number = 0
+    for (i=0; i<basket.length; i++) {
+        number = number + product.selectQuantity[i] * product.selectPrice[i]
     }
     document.getElementById("totalPrice").innerHTML = `${number}`
 }
