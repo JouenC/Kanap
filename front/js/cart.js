@@ -1,3 +1,4 @@
+/* Si aucun panier dans le localstorage, en cré un, sinon, en récupère le contenu*/
 function getBasket() {
     const basket = localStorage.getItem("basket")
     if (basket == undefined) {
@@ -11,7 +12,7 @@ async function fillPage() {
     let basket = getBasket()
     console.log(basket)
     for(let product of basket) {
-        document.getElementById("cart__items").innerHTML += `<article class="cart__item" data-id="${product.selectProductId}" data-color="${product.selectProductColor}">
+        document.getElementById("cart__items").innerHTML += `<article class="cart__item" data-id="${product._id}" data-color="${product.selectProductColor}">
                                                                 <div class="cart__item__img">
                                                                     <img src="${product.imageUrl}" alt="${product.altTxt}">
                                                                 </div>
@@ -19,7 +20,7 @@ async function fillPage() {
                                                                     <div class="cart__item__content__description">
                                                                         <h2>${product.name}</h2>
                                                                         <p>${product.selectColor}</p>
-                                                                        <p>${product.selectPrice} €</p>
+                                                                        <p>${product.price} €</p>
                                                                     </div>
                                                                     <div class="cart__item__content__settings">
                                                                         <div class="cart__item__content__settings__quantity">
@@ -50,12 +51,15 @@ function removeFromBasket(product) {
 
 function getNumberProduct() {
     let basket = getBasket()
+    console.log(basket.length)
     let number = 0
     let i = 0
-    console.log(document.getElementsByClassName("itemQuantity").value)
+    console.log(document.querySelector("input").value)
     while (i<basket.length) {
-        number + parseInt(document.getElementsByClassName("itemQuantity")[i].value)
+        number + document.querySelector("input")[i].value
         i++
+        return number
+        console.log(number)
     }
     document.getElementById("totalQuantity").innerHTML = `${number}`
 }
@@ -76,7 +80,7 @@ function getTotalPrice() {
     console.log(basket)
     let number = 0
     for (i=0; i<basket.length; i++) {
-        number = number + product.selectQuantity[i] * product.selectPrice[i]
+        number = number + document.querySelector("input").value[i] * product.selectPrice[i]
     }
     document.getElementById("totalPrice").innerHTML = `${number}`
 }

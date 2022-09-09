@@ -33,6 +33,7 @@ function fillPageProduct(product) {
     
 }
 
+/* Permet le choix de la couleur du canapé dans un menu déroulant */
 function colorChoice(product) {
     for(i = 0; i<product.colors.length; i++) { 
         let option = document.createElement("option")
@@ -55,24 +56,20 @@ document.getElementById('addToCart').addEventListener('click', function() {
         return false
         /*alors renvoyer un texte demandant de choisir une couleur*/
     }
-    currentProduct.selectPrice = parseInt(document.getElementById("price").innerHTML)
-    currentProduct.selectId = getProductId()
     console.log(currentProduct)
     addBasket(currentProduct)
 })
 
-function addBasket(product, quantity) {
+function addBasket(product) {
     let basket = getBasket()
-    let foundProduct = basket.find(p => p.id == product.id)
-    /*console.log(foundProduct.selectColor)
-    console.log(foundProduct.selectQuantity)
-    if (foundProduct.selectColor != undefined) {
-        foundProduct.selectQuantity += quantity Ne fonctionne pas...
-    } else {
-        foundProduct.selectQuantity == quantity
-    }*/
-    basket.push(product)
     console.log(basket)
+    let foundProduct = basket.find(p => p._id === product._id && p.selectColor === product.selectColor)
+    if (foundProduct) {
+        console.log("tot")
+        foundProduct.selectQuantity += currentProduct.selectQuantity /*Ne fonctionne pas...*/
+    } else {
+        basket.push(product)
+    }
     saveBasket(basket)
 }
 
