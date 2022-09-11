@@ -66,7 +66,7 @@ function addBasket(product) {
     let foundProduct = basket.find(p => p._id === product._id && p.selectColor === product.selectColor)
     if (foundProduct) {
         console.log("tot")
-        foundProduct.selectQuantity += currentProduct.selectQuantity /*Ne fonctionne pas...*/
+        foundProduct.selectQuantity += currentProduct.selectQuantity
     } else {
         basket.push(product)
     }

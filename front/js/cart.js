@@ -40,15 +40,17 @@ fillPage()
 getNumberProduct()
 getTotalPrice()
 
-document.getElementsByClassName('deleteItem').addEventListener('click', removeFromBasket())
 
-function removeFromBasket(product) {
-    let basket = getBasket()
-    console.log(basket)
-    basket = basket.filter(p => p.id != product.id)
-    saveBasket(basket)
-}
-
+document.querySelectorAll('deleteItem').forEach((basket) => {
+    document.querySelectorAll('deleteItem').addEventListener('click', function() {
+    console.log("hih")
+    let totalProductRemove = basket.length
+    console.log(totalProductRemove)
+    /*basket = basket.filter(p => p.id != product.id)
+    saveBasket(basket)*/
+    })
+})
+    
 function getNumberProduct() {
     let basket = getBasket()
     console.log(basket.length)
