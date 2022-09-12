@@ -51,38 +51,23 @@ document.querySelectorAll('deleteItem').forEach((basket) => {
     })
 })
     
-function getNumberProduct() {
-    let basket = getBasket()
+async function getNumberProduct() {
+    let basket = await getBasket()
     console.log(basket.length)
     let number = 0
-    let i = 0
-    console.log(document.querySelector("input").value)
-    while (i<basket.length) {
-        number + document.querySelector("input")[i].value
-        i++
-        return number
-        console.log(number)
+    for (let product of basket) {
+        number += product.selectQuantity
+        /*number += document.querySelector("input").value*/
     }
     document.getElementById("totalQuantity").innerHTML = `${number}`
 }
-
-/*function getNumberProduct() {
-    let basket = getBasket()
-    console.log(basket)
-    let number = 0
-    for (i=0; i<basket.length; i++) {
-        number = number + basket.selectQuantity[i]
-        console.log(number)
-    }
-    document.getElementById("totalQuantity").innerHTML = `${number}`
-}*/
 
 function getTotalPrice() {
     let basket = getBasket()
     console.log(basket)
     let number = 0
     for (i=0; i<basket.length; i++) {
-        number = number + document.querySelector("input").value[i] * product.selectPrice[i]
+        number = number + document.querySelector("input").value[i] * basket.selectPrice[i].value
     }
     document.getElementById("totalPrice").innerHTML = `${number}`
 }
