@@ -66,8 +66,8 @@ function getTotalPrice() {
     let basket = getBasket()
     console.log(basket)
     let number = 0
-    for (i=0; i<basket.length; i++) {
-        number = number + document.querySelector("input").value[i] * basket.selectPrice[i].value
+    for (let product of basket) {
+        number += product.selectQuantity * product.price
     }
     document.getElementById("totalPrice").innerHTML = `${number}`
 }
