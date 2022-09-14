@@ -45,6 +45,7 @@ function colorChoice(product) {
     }
 }
 
+/* Permet d'ajouter un produit au panier si une quantité et une couleur sont sélectionnées */
 document.getElementById('addToCart').addEventListener('click', function() {
     currentProduct.selectQuantity = parseInt(document.getElementById("quantity").value)
     if (currentProduct.selectQuantity == 0) {

@@ -1,4 +1,4 @@
-/* Si aucun panier dans le localstorage, en cré un, sinon, en récupère le contenu*/
+/* Si aucun panier dans le localstorage, en créer un, sinon, en récupèrer le contenu*/
 function getBasket() {
     const basket = localStorage.getItem("basket")
     if (basket == undefined) {
@@ -8,6 +8,7 @@ function getBasket() {
     }
 }
 
+/* Construit l'affichage des produits stockés dans le localstorage */
 async function fillPage() {
     let basket = getBasket()
     console.log(basket)
@@ -41,13 +42,14 @@ getNumberProduct()
 getTotalPrice()
 
 
-document.querySelectorAll('deleteItem').forEach((basket) => {
-    document.querySelectorAll('deleteItem').addEventListener('click', function() {
+document.querySelector/*All*/('deleteItem').forEach((basket) => {
+    document.querySelector/*All*/('deleteItem').addEventListener('click', function() {
     console.log("hih")
-    let totalProductRemove = basket.length
-    console.log(totalProductRemove)
-    /*basket = basket.filter(p => p.id != product.id)
-    saveBasket(basket)*/
+    let basket = getBasket()
+    for (let product of basket) {
+        delete product.dataset.basket
+    }
+    /*saveBasket(basket)*/
     })
 })
     
@@ -76,13 +78,14 @@ function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }
 
-function changeQuantity(product, quantity) {
+document.querySelector/*All*/('input').addEventListener('click', function() {
     let basket = getBasket()
-    let foundProduct = basket.find(p => p.id == product.id)
-    if (foundProduct != undefined) {
-        foundProduct.quantity += quantity
-        if (foundProduct.quantity <= 0) {
-            removeFromBasket(product)
+    for (let product of basket) {
+        if (basket.selectQuantity != parseInt(document.querySelector('input').value)) {
+            basket.selectQuantity == parseInt(document.querySelector('input').value)
+            console.log (basket.selectQuantity)
+            /*basket.push()
+            saveBasket()*/
         }
     }
-}
+})
