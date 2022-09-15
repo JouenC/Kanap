@@ -89,3 +89,27 @@ document.querySelector/*All*/('input').addEventListener('click', function() {
         }
     }
 })
+
+function disableSubmit() {
+    if (disabled) {
+        document
+            .getElementById("order")
+            .setAttribute("disabled, true")
+    } else {
+        document
+            .getElementById("order")
+            .setAttribute("disabled, true")
+    }
+}
+
+document
+    .getElementById("firstName")
+    .addEventListener(onChange, function(validate) {
+        console.log(validate)
+        if(/[0-9]/.test(validate)) {
+            document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom"
+            disableSubmit(true)
+        } else {
+            disableSubmit(false)
+        }
+    })
