@@ -41,17 +41,24 @@ fillPage()
 getNumberProduct()
 getTotalPrice()
 
-
-document.querySelector/*All*/('deleteItem').forEach((basket) => {
-    document.querySelector/*All*/('deleteItem').addEventListener('click', function() {
+const deleteItem = document.querySelectorAll(".deleteItem")
+for (let i = 0; i < deleteItem.length; i++) {
+     deleteItem[i].addEventListener("click", function() {
+       if (true) {
+        console.log(i)
+       }
+     });
+ }
+/*document.querySelectorAll('.deleteItem').forEach((basket) => {
+    document.querySelectorAll('.deleteItem').addEventListener('click', function() {
     console.log("hih")
     let basket = getBasket()
     for (let product of basket) {
         delete product.dataset.basket
     }
-    /*saveBasket(basket)*/
+    saveBasket(basket)
     })
-})
+})*/
     
 async function getNumberProduct() {
     let basket = await getBasket()
@@ -59,7 +66,6 @@ async function getNumberProduct() {
     let number = 0
     for (let product of basket) {
         number += product.selectQuantity
-        /*number += document.querySelector("input").value*/
     }
     document.getElementById("totalQuantity").innerHTML = `${number}`
 }
@@ -78,7 +84,7 @@ function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }
 
-document.querySelector/*All*/('input').addEventListener('click', function() {
+document.querySelectorAll('.input').addEventListener('change', function() {
     let basket = getBasket()
     for (let product of basket) {
         if (basket.selectQuantity != parseInt(document.querySelector('input').value)) {
@@ -104,7 +110,7 @@ function disableSubmit() {
 
 document
     .getElementById("firstName")
-    .addEventListener(onChange, function(validate) {
+    .addEventListener('change', function(validate) {
         console.log(validate)
         if(/[0-9]/.test(validate)) {
             document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom"
