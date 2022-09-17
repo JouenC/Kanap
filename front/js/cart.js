@@ -11,7 +11,6 @@ function getBasket() {
 /* Construit l'affichage des produits stockés dans le localstorage */
 async function fillPage() {
     let basket = getBasket()
-    console.log(basket)
     for(let product of basket) {
         document.getElementById("cart__items").innerHTML += `<article class="cart__item" data-id="${product._id}" data-color="${product.selectProductColor}">
                                                                 <div class="cart__item__img">
@@ -46,19 +45,15 @@ for (let i = 0; i < deleteItem.length; i++) {
      deleteItem[i].addEventListener("click", function() {
        if (true) {
         console.log(i)
+        let basket = getBasket()
+        let deletProduct = basket.splice(i,1)
+        console.log(basket)
+        console.log(deletProduct)
+        saveBasket(basket)
+        location.reload()
        }
      });
  }
-/*document.querySelectorAll('.deleteItem').forEach((basket) => {
-    document.querySelectorAll('.deleteItem').addEventListener('click', function() {
-    console.log("hih")
-    let basket = getBasket()
-    for (let product of basket) {
-        delete product.dataset.basket
-    }
-    saveBasket(basket)
-    })
-})*/
     
 async function getNumberProduct() {
     let basket = await getBasket()
@@ -84,17 +79,36 @@ function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }
 
-document.querySelectorAll('.input').addEventListener('change', function() {
+var changeQuantity = document.querySelectorAll(".itemQuantity")
+for (let i = 0; i < changeQuantity.length; i++) {
+    changeQuantity[i].addEventListener("change", function(number) {
+        let basket = getBasket()
+        console.log(basket)
+        if (changeQuantity != basket.selectQuantity) {
+            console.log(i)
+            console.log(changeQuantity)
+            /*let selectQuantity = changeQuantity[i].valueAsNumber*/
+            console.log(changeQuantity[i].valueAsNumber)
+            basket[i].selectQuantity = changeQuantity[i].valueAsNumber
+            /*basket = basket.selectQuantity.splice(i,1,selectQuantity)*/
+            /*console.log(basket)*/
+            saveBasket(basket)
+            location.reload()
+       }
+     });
+ }
+
+/*document.querySelectorAll('.input').addEventListener('change', function() {
     let basket = getBasket()
     for (let product of basket) {
         if (basket.selectQuantity != parseInt(document.querySelector('input').value)) {
             basket.selectQuantity == parseInt(document.querySelector('input').value)
             console.log (basket.selectQuantity)
-            /*basket.push()
-            saveBasket()*/
+            basket.push()
+            saveBasket()
         }
     }
-})
+})*/
 
 function disableSubmit() {
     if (disabled) {
