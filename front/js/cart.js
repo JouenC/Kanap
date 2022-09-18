@@ -87,30 +87,15 @@ for (let i = 0; i < changeQuantity.length; i++) {
         if (changeQuantity != basket.selectQuantity) {
             console.log(i)
             console.log(changeQuantity)
-            /*let selectQuantity = changeQuantity[i].valueAsNumber*/
             console.log(changeQuantity[i].valueAsNumber)
             basket[i].selectQuantity = changeQuantity[i].valueAsNumber
-            /*basket = basket.selectQuantity.splice(i,1,selectQuantity)*/
-            /*console.log(basket)*/
             saveBasket(basket)
             location.reload()
        }
      });
  }
 
-/*document.querySelectorAll('.input').addEventListener('change', function() {
-    let basket = getBasket()
-    for (let product of basket) {
-        if (basket.selectQuantity != parseInt(document.querySelector('input').value)) {
-            basket.selectQuantity == parseInt(document.querySelector('input').value)
-            console.log (basket.selectQuantity)
-            basket.push()
-            saveBasket()
-        }
-    }
-})*/
-
-function disableSubmit() {
+/*function disableSubmit() {
     if (disabled) {
         document
             .getElementById("order")
@@ -120,16 +105,54 @@ function disableSubmit() {
             .getElementById("order")
             .setAttribute("disabled, true")
     }
-}
+}*/
 
-document
-    .getElementById("firstName")
-    .addEventListener('change', function(validate) {
-        console.log(validate)
-        if(/[0-9]/.test(validate)) {
-            document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom"
-            disableSubmit(true)
+document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom"
+document.getElementById("firstNameErrorMsg").style.display = "none"
+let validateFirstname = document.getElementById("firstName").value
+console.log(validateFirstname)
+document.getElementById("firstName").addEventListener('change', function() {
+        if(!/[^a-zA-Z]/.test(validateFirstname)) {
+            /*disableSubmit(false)*/
+            document.getElementById("firstNameErrorMsg").style.display = "none"
+            /*location.reload()*/
         } else {
-            disableSubmit(false)
+            document.getElementById("firstNameErrorMsg").style.display = "block"
+            /*disableSubmit(true)*/
         }
     })
+
+/*validateFirtname()
+function validateFirtname() {
+    var firstName = document.getElementById("firstName").value
+    console.log(firstName)
+    if (firstName = /[0-9]/.test()) {
+        document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom" 
+    } else {
+        document.getElementById("firstNameErrorMsg").innerText = ""
+    }
+}*/
+
+/*function validate() 
+    {
+        if(document.getElementById("firstName").length != [0-9]) {
+           document.getElementById('firstNameErrorMsg').innerHTML="this is invalid name";
+        }
+    }*/
+
+function validateEmail(input) {
+    var validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    if (document.getElementById("email").value.match(validRegex)) {
+        document.getElementById("emailErrorMsg").innerText = "Valid email address!"
+        document.getElementById("email").focus()
+        return true
+    } else {
+        document.getElementById("emailErrorMsg").innerText = "Invalid email address!"
+        document.getElementById("email").focus()
+        return false
+    }
+}
+
+document.getElementById("email").addEventListener('input', function() {
+    validateEmail()
+})
