@@ -107,21 +107,37 @@ for (let i = 0; i < changeQuantity.length; i++) {
     }
 }*/
 
-document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom"
+/*document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom"
 document.getElementById("firstNameErrorMsg").style.display = "none"
 let validateFirstname = document.getElementById("firstName").value
 console.log(validateFirstname)
 document.getElementById("firstName").addEventListener('change', function() {
         if(!/[^a-zA-Z]/.test(validateFirstname)) {
-            /*disableSubmit(false)*/
+            disableSubmit(false)
             document.getElementById("firstNameErrorMsg").style.display = "none"
-            /*location.reload()*/
+            location.reload()
         } else {
             document.getElementById("firstNameErrorMsg").style.display = "block"
-            /*disableSubmit(true)*/
+            disableSubmit(true)
         }
-    })
+    })*/
 
+function validateFirstName(input) {
+    var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\-\s]+$/i/*ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ))(?!\-)*/
+    if (document.getElementById("firstName").value.match(validRegex)) {
+        document.getElementById("firstNameErrorMsg").innerText = ""
+        document.getElementById("firstName").focus()
+        return true
+    } else {
+        document.getElementById("firstNameErrorMsg").innerText = "Prénom invalide!"
+        document.getElementById("firstName").focus()
+        return false
+    }
+}
+
+document.getElementById("firstName").addEventListener('input', function() {
+    validateFirstName()
+})
 /*validateFirtname()
 function validateFirtname() {
     var firstName = document.getElementById("firstName").value
@@ -143,11 +159,11 @@ function validateFirtname() {
 function validateEmail(input) {
     var validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if (document.getElementById("email").value.match(validRegex)) {
-        document.getElementById("emailErrorMsg").innerText = "Valid email address!"
+        document.getElementById("emailErrorMsg").innerText = ""
         document.getElementById("email").focus()
         return true
     } else {
-        document.getElementById("emailErrorMsg").innerText = "Invalid email address!"
+        document.getElementById("emailErrorMsg").innerText = "Adresse email invalide!"
         document.getElementById("email").focus()
         return false
     }
