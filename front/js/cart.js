@@ -95,35 +95,16 @@ for (let i = 0; i < changeQuantity.length; i++) {
      });
  }
 
-/*function disableSubmit() {
-    if (disabled) {
-        document
-            .getElementById("order")
-            .setAttribute("disabled, true")
-    } else {
-        document
-            .getElementById("order")
-            .setAttribute("disabled, true")
-    }
-}*/
+function noValidForm() {
+    document.getElementById("order").preventDefault()
+}
 
-/*document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom"
-document.getElementById("firstNameErrorMsg").style.display = "none"
-let validateFirstname = document.getElementById("firstName").value
-console.log(validateFirstname)
-document.getElementById("firstName").addEventListener('change', function() {
-        if(!/[^a-zA-Z]/.test(validateFirstname)) {
-            disableSubmit(false)
-            document.getElementById("firstNameErrorMsg").style.display = "none"
-            location.reload()
-        } else {
-            document.getElementById("firstNameErrorMsg").style.display = "block"
-            disableSubmit(true)
-        }
-    })*/
+function validForm() {
+    document.getElementById("order")
+}
 
 function validateFirstName(input) {
-    var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\-\s]+$/i/*ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ))(?!\-)*/
+    var validRegex = /^([a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]+[\-?]|[\s?]+[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]*)+$/i/*ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ))(?!\-)*/
     if (document.getElementById("firstName").value.match(validRegex)) {
         document.getElementById("firstNameErrorMsg").innerText = ""
         document.getElementById("firstName").focus()
@@ -131,6 +112,7 @@ function validateFirstName(input) {
     } else {
         document.getElementById("firstNameErrorMsg").innerText = "Prénom invalide!"
         document.getElementById("firstName").focus()
+        noValidForm()
         return false
     }
 }
@@ -138,23 +120,60 @@ function validateFirstName(input) {
 document.getElementById("firstName").addEventListener('input', function() {
     validateFirstName()
 })
-/*validateFirtname()
-function validateFirtname() {
-    var firstName = document.getElementById("firstName").value
-    console.log(firstName)
-    if (firstName = /[0-9]/.test()) {
-        document.getElementById("firstNameErrorMsg").innerText = "Ceci n'est pas un prénom" 
-    } else {
-        document.getElementById("firstNameErrorMsg").innerText = ""
-    }
-}*/
 
-/*function validate() 
-    {
-        if(document.getElementById("firstName").length != [0-9]) {
-           document.getElementById('firstNameErrorMsg').innerHTML="this is invalid name";
-        }
-    }*/
+function validateLastName(input) {
+    var validRegex = /^([a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]+[\-?]|[\s?]+[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]*)+$/i
+    if (document.getElementById("lastName").value.match(validRegex)) {
+        document.getElementById("lastNameErrorMsg").innerText = ""
+        document.getElementById("lastName").focus()
+        return true
+    } else {
+        document.getElementById("lastNameErrorMsg").innerText = "Nom de famille invalide!"
+        document.getElementById("lastName").focus()
+        noValidForm()
+        return false
+    }
+}
+
+document.getElementById("lastName").addEventListener('input', function() {
+    validateLastName()
+})
+
+function validateAddress(input) {
+    var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ0-9\-\s]+$/i
+    if (document.getElementById("address").value.match(validRegex)) {
+        document.getElementById("addressErrorMsg").innerText = ""
+        document.getElementById("address").focus()
+        return true
+    } else {
+        document.getElementById("addressErrorMsg").innerText = "Adresse invalide!"
+        document.getElementById("address").focus()
+        noValidForm()
+        return false
+    }
+}
+
+document.getElementById("address").addEventListener('input', function() {
+    validateAddress()
+})
+
+function validateCity(input) {
+    var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\-\s]+$/i
+    if (document.getElementById("city").value.match(validRegex)) {
+        document.getElementById("cityErrorMsg").innerText = ""
+        document.getElementById("city").focus()
+        return true
+    } else {
+        document.getElementById("cityErrorMsg").innerText = "Ville invalide!"
+        document.getElementById("city").focus()
+        noValidForm()
+        return false
+    }
+}
+
+document.getElementById("city").addEventListener('input', function() {
+    validateCity()
+})
 
 function validateEmail(input) {
     var validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -165,6 +184,7 @@ function validateEmail(input) {
     } else {
         document.getElementById("emailErrorMsg").innerText = "Adresse email invalide!"
         document.getElementById("email").focus()
+        noValidForm()
         return false
     }
 }
