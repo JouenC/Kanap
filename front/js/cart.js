@@ -95,14 +95,6 @@ for (let i = 0; i < changeQuantity.length; i++) {
      });
  }
 
-function noValidForm() {
-    document.getElementById("order").preventDefault()
-}
-
-function validForm() {
-    document.getElementById("order")
-}
-
 function validateFirstName(input) {
     var validRegex = /^([a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]+[\-?]|[\s?]+[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]*)+$/i/*ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ))(?!\-)*/
     if (document.getElementById("firstName").value.match(validRegex)) {
@@ -192,3 +184,37 @@ function validateEmail(input) {
 document.getElementById("email").addEventListener('input', function() {
     validateEmail()
 })
+
+function noValidForm() {
+    document.getElementById("order").preventDefault()
+}
+
+validForm()
+
+function validForm() {
+    document.getElementById("order").addEventListener('click', function() {
+        let basket = getBasket()
+        let contact = []
+        contact.document
+            .getElementById("firstName").push()
+            .getElementById("lastName").push()
+            .getElementById("address").push()
+            .getElementById("city").push()
+            .getElementById("email").push()
+            .getElementById("totalQuantity").push()
+            .getElementById("totalPrice").push()
+        for (let i = 0; i < basket.length; i++) {
+            contact.basket.selectColor[i].push()
+            contact.basket.selectQuantity[i].push()
+        }
+    })
+}
+
+function getContact() {
+    /*let local = appel depuis l'API*/
+    if (contact == null) {
+        return []
+    } else {
+        return /*renvoyer l'array contact*/
+    }
+}
