@@ -22,15 +22,12 @@ async function getProducts() {
 /* Récupération des données de l'API, conversion en Json puis appel de la fonction fillPage */
 async function getProducts() {
     const products = await fetch("http://localhost:3000/api/products")
-    console.log(products.data)
     const productsJson = await products.json()
-    console.log(productsJson)
     fillPage(productsJson)
 }
 
 /* Construit de manière dynamique les cartes des différents produits */
 function fillPage(products) {
-    console.log(products)
     products.forEach(product => {
         let productLink = document.createElement('a')
         let productArticle = document.createElement('article')
