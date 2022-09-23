@@ -49,14 +49,15 @@ function colorChoice(product) {
 document.getElementById('addToCart').addEventListener('click', function() {
     currentProduct.selectQuantity = parseInt(document.getElementById("quantity").value)
     if (currentProduct.selectQuantity == 0) {
+        alert("Veuillez renseigner une couleur une quantité")
         return false
-        /*alors renvoyer un texte demandant de choisir une quantité*/
     }
     currentProduct.selectColor = document.getElementById("colors").value
     if (currentProduct.selectColor === "") {
+        alert("Veuillez renseigner une couleur et une quantité")
         return false
-        /*alors renvoyer un texte demandant de choisir une couleur*/
     }
+    alert("La commande a été ajoutée au panier")
     console.log(currentProduct)
     addBasket(currentProduct)
 })
