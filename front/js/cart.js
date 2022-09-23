@@ -40,10 +40,10 @@ fillPage()
 getNumberProduct()
 getTotalPrice()
 
+/* Permet de supprimer un article du panier */
 const deleteItem = document.querySelectorAll(".deleteItem")
 for (let i = 0; i < deleteItem.length; i++) {
      deleteItem[i].addEventListener("click", function() {
-       if (true) {
         console.log(i)
         let basket = getBasket()
         let deletProduct = basket.splice(i,1)
@@ -51,8 +51,7 @@ for (let i = 0; i < deleteItem.length; i++) {
         console.log(deletProduct)
         saveBasket(basket)
         location.reload()
-       }
-     });
+     })
  }
     
 async function getNumberProduct() {
@@ -81,7 +80,7 @@ function saveBasket(basket) {
 
 var changeQuantity = document.querySelectorAll(".itemQuantity")
 for (let i = 0; i < changeQuantity.length; i++) {
-    changeQuantity[i].addEventListener("change", function(number) {
+    changeQuantity[i].addEventListener("change", function() {
         let basket = getBasket()
         console.log(basket)
         if (changeQuantity != basket.selectQuantity) {
@@ -96,14 +95,12 @@ for (let i = 0; i < changeQuantity.length; i++) {
  }
 
 function validateFirstName(input) {
-    var validRegex = /^([a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]+[\-?]|[\s?]+[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]*)+$/i/*ÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ))(?!\-)*/
+    var validRegex = /^([a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153\s-]*)+$/i
     if (document.getElementById("firstName").value.match(validRegex)) {
         document.getElementById("firstNameErrorMsg").innerText = ""
-        document.getElementById("firstName").focus()
         return true
     } else {
         document.getElementById("firstNameErrorMsg").innerText = "Prénom invalide!"
-        document.getElementById("firstName").focus()
         noValidForm()
         return false
     }
@@ -114,14 +111,12 @@ document.getElementById("firstName").addEventListener('input', function() {
 })
 
 function validateLastName(input) {
-    var validRegex = /^([a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]+[\-?]|[\s?]+[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]*)+$/i
+    var validRegex = /^([a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153]+[-?]|[\s?]+[a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153]*)+$/i
     if (document.getElementById("lastName").value.match(validRegex)) {
         document.getElementById("lastNameErrorMsg").innerText = ""
-        document.getElementById("lastName").focus()
         return true
     } else {
         document.getElementById("lastNameErrorMsg").innerText = "Nom de famille invalide!"
-        document.getElementById("lastName").focus()
         noValidForm()
         return false
     }
@@ -135,11 +130,9 @@ function validateAddress(input) {
     var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ0-9\-\s]+$/i
     if (document.getElementById("address").value.match(validRegex)) {
         document.getElementById("addressErrorMsg").innerText = ""
-        document.getElementById("address").focus()
         return true
     } else {
         document.getElementById("addressErrorMsg").innerText = "Adresse invalide!"
-        document.getElementById("address").focus()
         noValidForm()
         return false
     }
@@ -153,11 +146,9 @@ function validateCity(input) {
     var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\-\s]+$/i
     if (document.getElementById("city").value.match(validRegex)) {
         document.getElementById("cityErrorMsg").innerText = ""
-        document.getElementById("city").focus()
         return true
     } else {
         document.getElementById("cityErrorMsg").innerText = "Ville invalide!"
-        document.getElementById("city").focus()
         noValidForm()
         return false
     }
@@ -168,14 +159,12 @@ document.getElementById("city").addEventListener('input', function() {
 })
 
 function validateEmail(input) {
-    var validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    var validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,4}))$/
     if (document.getElementById("email").value.match(validRegex)) {
         document.getElementById("emailErrorMsg").innerText = ""
-        document.getElementById("email").focus()
         return true
     } else {
         document.getElementById("emailErrorMsg").innerText = "Adresse email invalide!"
-        document.getElementById("email").focus()
         noValidForm()
         return false
     }
@@ -189,7 +178,7 @@ function noValidForm() {
     document.getElementById("order").preventDefault()
 }
 
-validForm()
+/*validForm()*/
 
 function validForm() {
     document.getElementById("order").addEventListener('click', function() {
@@ -203,10 +192,10 @@ function validForm() {
             .getElementById("email").push()
             .getElementById("totalQuantity").push()
             .getElementById("totalPrice").push()
-        for (let i = 0; i < basket.length; i++) {
+        /*for (let i = 0; i < basket.length; i++) {
             contact.basket.selectColor[i].push()
             contact.basket.selectQuantity[i].push()
-        }
+        }*/
     })
 }
 

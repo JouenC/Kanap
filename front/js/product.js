@@ -61,6 +61,7 @@ document.getElementById('addToCart').addEventListener('click', function() {
     addBasket(currentProduct)
 })
 
+/* Permet d'ajouter un produit dans le panier et de l'ajouter à l'existant si même id et même couleur */
 function addBasket(product) {
     let basket = getBasket()
     console.log(basket)
