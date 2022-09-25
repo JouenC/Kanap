@@ -101,7 +101,7 @@ function validateFirstName(input) {
         return true
     } else {
         document.getElementById("firstNameErrorMsg").innerText = "Prénom invalide!"
-        noValidForm()
+        /*noValidForm()*/
         return false
     }
 }
@@ -111,13 +111,13 @@ document.getElementById("firstName").addEventListener('input', function() {
 })
 
 function validateLastName(input) {
-    var validRegex = /^([a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153]+[-?]|[\s?]+[a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153]*)+$/i
+    var validRegex = /^([a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153\s-]*)+$/i
     if (document.getElementById("lastName").value.match(validRegex)) {
         document.getElementById("lastNameErrorMsg").innerText = ""
         return true
     } else {
         document.getElementById("lastNameErrorMsg").innerText = "Nom de famille invalide!"
-        noValidForm()
+        /*noValidForm()*/
         return false
     }
 }
@@ -133,7 +133,7 @@ function validateAddress(input) {
         return true
     } else {
         document.getElementById("addressErrorMsg").innerText = "Adresse invalide!"
-        noValidForm()
+        /*noValidForm()*/
         return false
     }
 }
@@ -149,7 +149,7 @@ function validateCity(input) {
         return true
     } else {
         document.getElementById("cityErrorMsg").innerText = "Ville invalide!"
-        noValidForm()
+        /*noValidForm()*/
         return false
     }
 }
@@ -165,7 +165,7 @@ function validateEmail(input) {
         return true
     } else {
         document.getElementById("emailErrorMsg").innerText = "Adresse email invalide!"
-        noValidForm()
+        /*noValidForm()*/
         return false
     }
 }
@@ -174,36 +174,31 @@ document.getElementById("email").addEventListener('input', function() {
     validateEmail()
 })
 
-function noValidForm() {
-    document.getElementById("order").preventDefault()
+ 
+const productId = []
+let basket = getBasket()
+for (i = 0; i < basket.length; i++) {
+    productId.push(basket[i]._id)
 }
+console.log(productId)
 
-/*validForm()*/
 
-function validForm() {
-    document.getElementById("order").addEventListener('click', function() {
-        let basket = getBasket()
-        let contact = []
-        contact.document
-            .getElementById("firstName").push()
-            .getElementById("lastName").push()
-            .getElementById("address").push()
-            .getElementById("city").push()
-            .getElementById("email").push()
-            .getElementById("totalQuantity").push()
-            .getElementById("totalPrice").push()
-        /*for (let i = 0; i < basket.length; i++) {
-            contact.basket.selectColor[i].push()
-            contact.basket.selectQuantity[i].push()
-        }*/
-    })
-}
-
-function getContact() {
-    /*let local = appel depuis l'API*/
-    if (contact == null) {
-        return []
-    } else {
-        return /*renvoyer l'array contact*/
+document.getElementById("order").addEventListener("click", function(event) {
+    event.preventDefault()
+    const validForm = {
+        contact : {
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            address: document.getElementById("address").value,
+            city: document.getElementById("city").value,
+            email: document.getElementById("email").value
+        },
+        products : productId
     }
-}
+    console.log(validForm)
+    /*fetch("https://loalhost:3000/api/products/order", {
+        method: "POST",
+        headers: {"Content-Type": "application/JSON"},
+        body: JSON.stringify(validForm)
+    })*/
+})
