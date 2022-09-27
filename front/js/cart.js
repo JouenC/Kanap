@@ -200,5 +200,19 @@ document.getElementById("order").addEventListener("click", function(event) {
         method: "POST",
         headers: {"Content-Type": "application/JSON"},
         body: JSON.stringify(validForm)
-    })*/
+    })
+        .then (function(res) {
+            if (res.ok) {
+                return res.json()
+                alert "Merci pour votre commande"
+            }
+        })
+        .then (function(value) {
+            console.log(value)
+            localStorage.setItem("orderId", value.orderId")
+            document.location.href = "confirmation.html"
+        })
+        .catch (err) {
+            alert "Une erreur s'est produite, votre commande n'a pu être effetuée"
+        }*/
 })
