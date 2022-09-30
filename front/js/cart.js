@@ -53,7 +53,8 @@ for (let i = 0; i < deleteItem.length; i++) {
         location.reload()
      })
  }
-    
+
+/* Calcul et affiche la quantité totale de produits commandés */
 async function getNumberProduct() {
     let basket = await getBasket()
     console.log(basket.length)
@@ -204,13 +205,11 @@ document.getElementById("order").addEventListener("click", function(event) {
         .then (function(res) {
             if (res.ok) {
                 return res.json()
-                alert("Merci pour votre commande")
             }
         })
         .then (function(value) {
             console.log(value)
-            localStorage.setItem("orderId", value.orderId)
-            document.location.href = "confirmation.html"
+            document.location.href = "confirmation.html?orderid=" + value.orderId
         })
         .catch (function(err) {
             alert("Une erreur s'est produite, votre commande n'a pu être effetuée")

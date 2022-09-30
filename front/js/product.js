@@ -76,6 +76,7 @@ function addBasket(product) {
     saveBasket(basket)
 }
 
+/* Permet de créer une nouvelle liste dans le localstorage ou renvoie la liste si elle existe*/
 function getBasket() {
     let basket = localStorage.getItem("basket")
     if (basket == null) {

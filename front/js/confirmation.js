@@ -1,13 +1,8 @@
-function getBasket() {
-    const orderId = localStorage.getItem("orderId")
-    console.log(orderId)
-    if (orderId == undefined) {
-        return false
-    } else {
-        /*return JSON.parse(orderId)*/
-        document.getElementById("orderId").innerText = "" + orderId
-        localStorage.clear()
-    }
+/* Récupère le numéro de commande dans l'URL et l'affiche dans la page */
+function getOrderId() {
+    const orderId = new URL(location.href).searchParams.get("orderid")
+    document.getElementById("orderId").innerText = "" + orderId
+    localStorage.clear()
 }
 
-getBasket()
+getOrderId()
