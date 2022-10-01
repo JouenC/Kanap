@@ -10,11 +10,8 @@ function getProductId() {
 /* Appel le produit correspondant à la page à l'aide de son id puis appel les fonctions permettant son affichage sur la page */
 async function displayProduct() {
     const productId = getProductId()
-    console.log(productId)
     const getProduct = await fetch(`http://localhost:3000/api/products/${productId}`)
-    console.log(getProduct)
     const productJson = await getProduct.json()
-    console.log(productJson)
     fillPageProduct(productJson)
     colorChoice(productJson)
     currentProduct = productJson
@@ -22,7 +19,6 @@ async function displayProduct() {
 
 /* Permet l'affichage des caractéristiques du produit correspondant à la page */
 function fillPageProduct(product) {
-    console.log(product)
     let productImg = document.createElement('img')
     productImg.src = product.imageUrl
     productImg.alt = product.altTxt
@@ -38,9 +34,7 @@ function colorChoice(product) {
     for(i = 0; i<product.colors.length; i++) { 
         let option = document.createElement("option")
         option.value = product.colors[i]
-        console.log(option.value)
         option.innerHTML = product.colors[i]
-        console.log(option.innerHTML)
         document.querySelector("select").appendChild(option)
     }
 }
@@ -57,18 +51,14 @@ document.getElementById('addToCart').addEventListener('click', function() {
         alert("Veuillez renseigner une couleur et une quantité")
         return false
     }
-    alert("La commande a été ajoutée au panier")
-    console.log(currentProduct)
     addBasket(currentProduct)
 })
 
 /* Permet d'ajouter un produit dans le panier et de l'ajouter à l'existant si même id et même couleur */
 function addBasket(product) {
     let basket = getBasket()
-    console.log(basket)
     let foundProduct = basket.find(p => p._id === product._id && p.selectColor === product.selectColor)
     if (foundProduct) {
-        console.log("tot")
         foundProduct.selectQuantity += currentProduct.selectQuantity
     } else {
         basket.push(product)
@@ -86,6 +76,7 @@ function getBasket() {
     }
 }
 
+/* Sauvegarde le panier dans le local storage */
 function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }

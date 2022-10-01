@@ -44,11 +44,8 @@ getTotalPrice()
 const deleteItem = document.querySelectorAll(".deleteItem")
 for (let i = 0; i < deleteItem.length; i++) {
      deleteItem[i].addEventListener("click", function() {
-        console.log(i)
         let basket = getBasket()
         let deletProduct = basket.splice(i,1)
-        console.log(basket)
-        console.log(deletProduct)
         saveBasket(basket)
         location.reload()
      })
@@ -57,7 +54,6 @@ for (let i = 0; i < deleteItem.length; i++) {
 /* Calcul et affiche la quantité totale de produits commandés */
 async function getNumberProduct() {
     let basket = await getBasket()
-    console.log(basket.length)
     let number = 0
     for (let product of basket) {
         number += product.selectQuantity
@@ -65,9 +61,9 @@ async function getNumberProduct() {
     document.getElementById("totalQuantity").innerHTML = `${number}`
 }
 
+/* Calcul et affiche le prix total des produits du panier */
 function getTotalPrice() {
     let basket = getBasket()
-    console.log(basket)
     let number = 0
     for (let product of basket) {
         number += product.selectQuantity * product.price
@@ -75,19 +71,16 @@ function getTotalPrice() {
     document.getElementById("totalPrice").innerHTML = `${number}`
 }
 
+/* Sauvegarde le panier dans le local storage */
 function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }
-
+/* Ecoute les changements de la quantité des produits du panier et met à jour son contenu dans le local storage (ce qui entrainera une mise à jour de l'affichage du nombre total de produits ainsi que le prix total */
 var changeQuantity = document.querySelectorAll(".itemQuantity")
 for (let i = 0; i < changeQuantity.length; i++) {
     changeQuantity[i].addEventListener("change", function() {
         let basket = getBasket()
-        console.log(basket)
         if (changeQuantity != basket.selectQuantity) {
-            console.log(i)
-            console.log(changeQuantity)
-            console.log(changeQuantity[i].valueAsNumber)
             basket[i].selectQuantity = changeQuantity[i].valueAsNumber
             saveBasket(basket)
             location.reload()
@@ -95,6 +88,7 @@ for (let i = 0; i < changeQuantity.length; i++) {
      });
  }
 
+ /* Validation du champs fist name du formulaire */
 function validateFirstName(input) {
     var validRegex = /^([a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153\s-]*)+$/i
     if (document.getElementById("firstName").value.match(validRegex)) {
@@ -102,15 +96,16 @@ function validateFirstName(input) {
         return true
     } else {
         document.getElementById("firstNameErrorMsg").innerText = "Prénom invalide!"
-        /*noValidForm()*/
         return false
     }
 }
 
+/* Ecoute de tout changement dans le champs first name */
 document.getElementById("firstName").addEventListener('input', function() {
     validateFirstName()
 })
 
+/* Validation du champs last name du formulaire */
 function validateLastName(input) {
     var validRegex = /^([a-z\u00E1\u00E0\u00E2\u00E4\u00E3\u00E5\u00E7\u00E9\u00E8\u00EA\u00EB\u00ED\u00EC\u00EE\u00EF\u00F1\u00F3\u00F2\u00F4\u00F6\u00F5\u00FA\u00F9\u00FB\u00FC\u00FD\u00FF\u00E6\u0153\s-]*)+$/i
     if (document.getElementById("lastName").value.match(validRegex)) {
@@ -118,15 +113,16 @@ function validateLastName(input) {
         return true
     } else {
         document.getElementById("lastNameErrorMsg").innerText = "Nom de famille invalide!"
-        /*noValidForm()*/
         return false
     }
 }
 
+/* Ecoute de tout changement dans le champs last name */
 document.getElementById("lastName").addEventListener('input', function() {
     validateLastName()
 })
 
+/* Validation du champs address du formulaire */
 function validateAddress(input) {
     var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ0-9\-\s]+$/i
     if (document.getElementById("address").value.match(validRegex)) {
@@ -134,15 +130,16 @@ function validateAddress(input) {
         return true
     } else {
         document.getElementById("addressErrorMsg").innerText = "Adresse invalide!"
-        /*noValidForm()*/
         return false
     }
 }
 
+/* Ecoute de tout changement dans le champs address */
 document.getElementById("address").addEventListener('input', function() {
     validateAddress()
 })
 
+/* Validation du champs city du formulaire */
 function validateCity(input) {
     var validRegex = /^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ\-\s]+$/i
     if (document.getElementById("city").value.match(validRegex)) {
@@ -150,15 +147,16 @@ function validateCity(input) {
         return true
     } else {
         document.getElementById("cityErrorMsg").innerText = "Ville invalide!"
-        /*noValidForm()*/
         return false
     }
 }
 
+/* Ecoute de tout changement dans le champs city */
 document.getElementById("city").addEventListener('input', function() {
     validateCity()
 })
 
+/* Validation du champs email du formulaire */
 function validateEmail(input) {
     var validRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,4}))$/
     if (document.getElementById("email").value.match(validRegex)) {
@@ -166,24 +164,23 @@ function validateEmail(input) {
         return true
     } else {
         document.getElementById("emailErrorMsg").innerText = "Adresse email invalide!"
-        /*noValidForm()*/
         return false
     }
 }
 
+/* Ecoute de tout changement dans le champs email */
 document.getElementById("email").addEventListener('input', function() {
     validateEmail()
 })
 
- 
+/* Stock l'id des produits présents dans le local storage dans la constante productId */
 const productId = []
 let basket = getBasket()
 for (i = 0; i < basket.length; i++) {
     productId.push(basket[i]._id)
 }
-console.log(productId)
 
-
+/* Lors du clique sur le bouton commander, envoie les informations du formmulaire à l'API ainsi que l'id des produits puis redirige vers la page confirmation en stockant le numéro de commande dans son URL */
 document.getElementById("order").addEventListener("click", function(event) {
     event.preventDefault()
     const validForm = {
@@ -196,7 +193,6 @@ document.getElementById("order").addEventListener("click", function(event) {
         },
         products : productId
     }
-    console.log(validForm)
     fetch("http://localhost:3000/api/products/order", {
         method: "POST",
         headers: {"Content-Type": "application/JSON"},
@@ -208,7 +204,6 @@ document.getElementById("order").addEventListener("click", function(event) {
             }
         })
         .then (function(value) {
-            console.log(value)
             document.location.href = "confirmation.html?orderid=" + value.orderId
         })
         .catch (function(err) {
