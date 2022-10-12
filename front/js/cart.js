@@ -36,6 +36,23 @@ async function fillPage() {
     }
 }
 
+/*async function getPriceProducts() {
+    const priceProducts = await fetch("http://localhost:3000/api/products")
+    const priceProductsJson = await priceProducts.json()
+}
+
+async function fillPagePrice() {
+    let basket = getBasket()
+    let price = getPriceProducts(product)
+    let foundPrice = price.find(p => p._id === basket._id && p.price === basket.price) 
+    if (foundPrice) {
+        document.createElement('p').innerHTML = product.price
+        document.createElement('p').appendChild(document.querySelector("cart__item__content__description"))
+    }
+}*/
+
+
+
 fillPage()
 getNumberProduct()
 getTotalPrice()
@@ -75,17 +92,21 @@ function getTotalPrice() {
 function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }
-/* Ecoute les changements de la quantité des produits du panier et met à jour son contenu dans le local storage (ce qui entrainera une mise à jour de l'affichage du nombre total de produits ainsi que le prix total */
+/* Ecoute les changements de la quantité des produits du panier et met à jour son contenu dans le local storage (ce qui entrainera une mise à jour de l'affichage du nombre total de produits ainsi que le prix total) */
 var changeQuantity = document.querySelectorAll(".itemQuantity")
 for (let i = 0; i < changeQuantity.length; i++) {
     changeQuantity[i].addEventListener("change", function() {
         let basket = getBasket()
-        if (changeQuantity != basket.selectQuantity) {
-            basket[i].selectQuantity = changeQuantity[i].valueAsNumber
-            saveBasket(basket)
-            location.reload()
-       }
-     });
+        if (changeQuantity < 1 || changeQuantity > 100 || changeQuantity == "") {
+            alert ("Blabla")
+            return false
+        } else {
+            if (changeQuantity != basket.selectQuantity)
+                basket[i].selectQuantity = changeQuantity[i].valueAsNumber
+                saveBasket(basket)
+                location.reload()
+        }
+       })
  }
 
  /* Validation du champs fist name du formulaire */
