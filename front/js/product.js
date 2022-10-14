@@ -42,16 +42,18 @@ function colorChoice(product) {
 /* Permet d'ajouter un produit au panier si une quantité et une couleur sont sélectionnées */
 document.getElementById('addToCart').addEventListener('click', function() {
     currentProduct.selectQuantity = parseInt(document.getElementById("quantity").value)
-    if (currentProduct.selectQuantity < 1 || currentProduct.selectQuantity > 100 || currentProduct.selectQuantity == "") {
-        alert("Veuillez renseigner une couleur et une quantité valide")
+    if (currentProduct.selectQuantity > 0 && currentProduct.selectQuantity < 101) {
+        currentProduct.selectColor = document.getElementById("colors").value
+        if (currentProduct.selectColor != "") {
+            addBasket(currentProduct)
+        } else {
+            alert("Veuillez renseigner une couleur")
+            return false
+        }
+    } else {
+        alert("Veuillez renseigner une quantité valide")
         return false
-    }
-    currentProduct.selectColor = document.getElementById("colors").value
-    if (currentProduct.selectColor === "") {
-        alert("Veuillez renseigner une couleur et une quantité valide")
-        return false
-    }
-    addBasket(currentProduct)
+    }   
 })
 
 /* Permet d'ajouter un produit dans le panier et de l'ajouter à l'existant si même id et même couleur */
@@ -65,6 +67,7 @@ function addBasket(product) {
             return false
         }
     } else {
+        delete product.price
         basket.push(product)
     }
     saveBasket(basket)
@@ -83,5 +86,4 @@ function getBasket() {
 /* Sauvegarde le panier dans le local storage */
 function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
-    delete basket.price
 }

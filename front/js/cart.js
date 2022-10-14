@@ -1,3 +1,6 @@
+getPriceProducts()
+let allProducts
+
 /* Si aucun panier dans le localstorage, en créer un, sinon, en récupèrer le contenu*/
 function getBasket() {
     const basket = localStorage.getItem("basket")
@@ -20,7 +23,7 @@ async function fillPage() {
                                                                     <div class="cart__item__content__description">
                                                                         <h2>${product.name}</h2>
                                                                         <p>${product.selectColor}</p>
-                                                                        <p>${product.price} €</p>
+                                                                        <p>${getProductPrice(product._id)} €</p>
                                                                     </div>
                                                                     <div class="cart__item__content__settings">
                                                                         <div class="cart__item__content__settings__quantity">
@@ -36,26 +39,20 @@ async function fillPage() {
     }
 }
 
-/*async function getPriceProducts() {
+/* Requête GET auprès de l'API suivi de la construction de la page */
+async function getPriceProducts() {
     const priceProducts = await fetch("http://localhost:3000/api/products")
-    const priceProductsJson = await priceProducts.json()
+    allProducts = await priceProducts.json()
+    fillPage()
+    getNumberProduct()
+    getTotalPrice()
 }
 
-async function fillPagePrice() {
-    let basket = getBasket()
-    let price = getPriceProducts(product)
-    let foundPrice = price.find(p => p._id === basket._id && p.price === basket.price) 
-    if (foundPrice) {
-        document.createElement('p').innerHTML = product.price
-        document.createElement('p').appendChild(document.querySelector("cart__item__content__description"))
-    }
-}*/
-
-
-
-fillPage()
-getNumberProduct()
-getTotalPrice()
+/* Lance une recherche en comparant les id des produits du local storage avec ceux de l'API pour en extraire les prix */
+function getProductPrice(_id) {
+    let foundProduct = allProducts.find(p => p._id === _id)
+    return foundProduct.price
+}
 
 /* Permet de supprimer un article du panier */
 const deleteItem = document.querySelectorAll(".deleteItem")
@@ -83,7 +80,7 @@ function getTotalPrice() {
     let basket = getBasket()
     let number = 0
     for (let product of basket) {
-        number += product.selectQuantity * product.price
+        number += product.selectQuantity * getProductPrice(product._id)
     }
     document.getElementById("totalPrice").innerHTML = `${number}`
 }
@@ -92,6 +89,7 @@ function getTotalPrice() {
 function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
 }
+
 /* Ecoute les changements de la quantité des produits du panier et met à jour son contenu dans le local storage (ce qui entrainera une mise à jour de l'affichage du nombre total de produits ainsi que le prix total) */
 var changeQuantity = document.querySelectorAll(".itemQuantity")
 for (let i = 0; i < changeQuantity.length; i++) {
@@ -106,7 +104,7 @@ for (let i = 0; i < changeQuantity.length; i++) {
                 saveBasket(basket)
                 location.reload()
         }
-       })
+    })
  }
 
  /* Validation du champs fist name du formulaire */
