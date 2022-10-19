@@ -95,15 +95,19 @@ var changeQuantity = document.querySelectorAll(".itemQuantity")
 for (let i = 0; i < changeQuantity.length; i++) {
     changeQuantity[i].addEventListener("change", function() {
         let basket = getBasket()
-        if (changeQuantity < 1 || changeQuantity > 100 || changeQuantity == "") {
-            alert ("Blabla")
-            return false
-        } else {
-            if (changeQuantity != basket.selectQuantity)
+        if (changeQuantity > 0 && changeQuantity < 101) {
+            if (selectQuantity != "") {
                 basket[i].selectQuantity = changeQuantity[i].valueAsNumber
                 saveBasket(basket)
                 location.reload()
-        }
+            }   else {
+                    alert ("Veuillez saisir une quantité entre comprise entre 0 et 101")
+                    return false  
+                }  
+        } else {
+            alert ("Veuillez saisir une quantité entre comprise entre 0 et 101")
+            return false  
+        }  
     })
  }
 
