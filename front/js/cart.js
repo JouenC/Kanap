@@ -54,14 +54,23 @@ function getProductPrice(_id) {
     return foundProduct.price
 }
 
+/* Retire un produit donné du panier */
+function deleteProduct() {
+    let basket = getBasket()
+        basket.splice(i,1)
+        saveBasket(basket)
+        location.reload()
+}
+
 /* Permet de supprimer un article du panier */
 const deleteItem = document.querySelectorAll(".deleteItem")
 for (let i = 0; i < deleteItem.length; i++) {
      deleteItem[i].addEventListener("click", function() {
-        let basket = getBasket()
-        let deletProduct = basket.splice(i,1)
+        deleteProduct()
+        /*let basket = getBasket()
+        basket.splice(i,1)
         saveBasket(basket)
-        location.reload()
+        location.reload()*/
      })
  }
 
