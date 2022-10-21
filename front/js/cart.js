@@ -43,7 +43,9 @@ async function fillPage() {
 async function getPriceProducts() {
     const priceProducts = await fetch("http://localhost:3000/api/products")
     allProducts = await priceProducts.json()
-    fillPage()
+    await fillPage()
+    eventDelete()
+    eventQuantity()
     getNumberProduct()
     getTotalPrice()
 }
@@ -55,7 +57,7 @@ function getProductPrice(_id) {
 }
 
 /* Retire un produit donné du panier */
-function deleteProduct() {
+function deleteProduct(i) {
     let basket = getBasket()
         basket.splice(i,1)
         saveBasket(basket)
@@ -63,23 +65,21 @@ function deleteProduct() {
 }
 
 /* Permet de supprimer un article du panier */
-const deleteItem = document.querySelectorAll(".deleteItem")
-for (let i = 0; i < deleteItem.length; i++) {
-     deleteItem[i].addEventListener("click", function() {
-        deleteProduct()
-        /*let basket = getBasket()
-        basket.splice(i,1)
-        saveBasket(basket)
-        location.reload()*/
-     })
- }
+function eventDelete() {
+    const deleteItem = document.querySelectorAll(".deleteItem")
+    for (let i = 0; i < deleteItem.length; i++) {
+        deleteItem[i].addEventListener("click", function() {
+        deleteProduct(i)
+        })
+    }
+}
 
 /* Calcul et affiche la quantité totale de produits commandés */
 async function getNumberProduct() {
     let basket = await getBasket()
     let number = 0
     for (let product of basket) {
-        number += product.selectQuantity
+        number += parseInt(product.selectQuantity)
     }
     document.getElementById("totalQuantity").innerHTML = `${number}`
 }
@@ -100,25 +100,30 @@ function saveBasket(basket) {
 }
 
 /* Ecoute les changements de la quantité des produits du panier et met à jour son contenu dans le local storage (ce qui entrainera une mise à jour de l'affichage du nombre total de produits ainsi que le prix total) */
-var changeQuantity = document.querySelectorAll(".itemQuantity")
-for (let i = 0; i < changeQuantity.length; i++) {
-    changeQuantity[i].addEventListener("change", function() {
-        let basket = getBasket()
-        if (changeQuantity > 0 && changeQuantity < 101) {
-            if (selectQuantity != "") {
-                basket[i].selectQuantity = changeQuantity[i].valueAsNumber
-                saveBasket(basket)
-                location.reload()
-            }   else {
-                    alert ("Veuillez saisir une quantité entre comprise entre 0 et 101")
-                    return false  
-                }  
-        } else {
-            alert ("Veuillez saisir une quantité entre comprise entre 0 et 101")
-            return false  
-        }  
-    })
- }
+function eventQuantity() {
+    var changeQuantity = document.querySelectorAll(".itemQuantity")
+    for (let i = 0; i < changeQuantity.length; i++) {
+        changeQuantity[i].addEventListener("change", function() {
+            let basket = getBasket()
+            console.log(this.value)
+            if (this.value > 0 && this.value < 101) {
+                if (this.value != "") {
+                    basket[i].selectQuantity = this.value
+                    saveBasket(basket)
+                    getNumberProduct()
+                    getTotalPrice()
+                    /*location.reload()*/
+                }   else {
+                        alert ("Veuillez saisir une quantité entre comprise entre 0 et 101")
+                        return false  
+                    }  
+            } else {
+                alert ("Veuillez saisir une quantité entre comprise entre 0 et 101")
+                return false  
+            }  
+        })
+    }
+}
 
  /* Validation du champs fist name du formulaire */
 function validateFirstName(input) {
@@ -215,6 +220,10 @@ for (i = 0; i < basket.length; i++) {
 /* Lors du clique sur le bouton commander, envoie les informations du formmulaire à l'API ainsi que l'id des produits puis redirige vers la page confirmation en stockant le numéro de commande dans son URL */
 document.getElementById("order").addEventListener("click", function(event) {
     event.preventDefault()
+    if (basket.length === 0) { 
+        alert("Votre panier est vide")
+        return
+    }
     const validForm = {
         contact : {
             firstName: document.getElementById("firstName").value,
